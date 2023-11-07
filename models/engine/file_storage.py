@@ -6,6 +6,11 @@ deserializes JSON file to instances
 import json
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
@@ -60,13 +65,7 @@ class FileStorage:
             with open(self.__file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
                 for key, value in data.items():
-                    class_name = key.split('.')
-
-                    if class_name == 'User':
-                        obj = User(**value)
-                    else:
-                        obj = BaseModel(**value)
-
+                    obj = eval(value['__class__'])(**value)
                     self.__objects[key] = obj
         except FileNotFoundError:
             pass
