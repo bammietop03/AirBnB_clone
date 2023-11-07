@@ -1,13 +1,11 @@
 #!/usr/bin/python3
 """
-This module defines a BaseModel that defines all common
+This module defines a BaseModel class that defines all common
 attributes/methods for other classes
 """
 import uuid
 from datetime import datetime
-from models.engine.file_storage import FileStorage
-
-storage = FileStorage()
+import models
 
 
 class BaseModel:
@@ -57,7 +55,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
-            storage.new(self)
+            models.storage.new(self)
 
     def __str__(self):
         """
@@ -72,7 +70,7 @@ class BaseModel:
         Updates the 'updated_at' attribute to the current date and time.
         """
         self.updated_at = datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """
