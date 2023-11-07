@@ -6,7 +6,7 @@ command interpreter
 import cmd
 from models import storage
 from models.base_model import BaseModel
-
+from models.user import User
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -40,25 +40,32 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        """ creates a new instance of BaseModel, save it, and print the id."""
+        """ creates a new instance of BaseModel or User, saves it
+        (to the JSON file) and prints the id. Ex: $ create BaseModel
+        """
         if not arg:
             print("** class name missing **")
         else:
             try:
-                new_instance = BaseModel()
-                new_instance.save()
-                print(new_instance.id)
+                args = arg.split()
+
+                if args[0] in ["BaseModel", "User"]:
+                    new_instance = eval(args[0])()
+                    new_instance.save()
+                    print(new_instance.id)
             except Exception:
                 print("** class doesn't exist **")
 
     def do_show(self, arg):
-        """Prints the string representation of an instance"""
+        """Prints the string representation of an instance based on the class
+        name and id. Ex: $ show BaseModel 1234-1234-1234.
+        """
         if not arg:
             print("** class name missing **")
         else:
             args = arg.split()
 
-            if args[0] not in ["BaseModel"]:
+            if args[0] not in ["BaseModel", "User"]:
                 print("** class doesn't exist **")
             elif len(args) < 2:
                 print("** instance id missing **")
@@ -71,13 +78,15 @@ class HBNBCommand(cmd.Cmd):
                     print("** no instance found **")
 
     def do_destroy(self, arg):
-        """Deletes an instance based on the class name and id."""
+        """Deletes an instance based on the class name and id (save the change
+        into the JSON file). Ex: $ destroy BaseModel 1234-1234-1234.
+        """
         if not arg:
             print("** class name missing **")
         else:
             args = arg.split()
 
-            if args[0] not in ["BaseModel"]:
+            if args[0] not in ["BaseModel", "User"]:
                 print("** class doesn't exist **")
             elif len(args) < 2:
                 print("** instance id missing **")
@@ -91,7 +100,9 @@ class HBNBCommand(cmd.Cmd):
                     print("** no instance found **")
 
     def do_all(self, arg):
-        """Prints all string representations of all instances."""
+        """Prints all string representation of all instances based or not on
+        the class name. Ex: $ all BaseModel or $ all.
+        """
         if not arg:
             all_object = storage.all()
             object_list = []
@@ -101,7 +112,7 @@ class HBNBCommand(cmd.Cmd):
             print(object_list)
         else:
             args = arg.split()
-            if args[0] not in ["BaseModel"]:
+            if args[0] not in ["BaseModel", "User"]:
                 print("** class doesn't exist **")
                 return
 
@@ -118,13 +129,16 @@ class HBNBCommand(cmd.Cmd):
                 print(object_list)
 
     def do_update(self, arg):
-        """Updates an instance based on the class name and id."""
+        """Updates an instance based on the class name and id by adding or
+        updating attribute (save the change into the JSON file).
+        Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
+        """
         if not arg:
             print("** class name missing **")
         else:
             args = arg.split()
 
-            if args[0] not in ["BaseModel"]:
+            if args[0] not in ["BaseModel", "User"]:
                 print("** class doesn't exist **")
             elif len(args) < 2:
                 print("** instance id missing **")
@@ -134,7 +148,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
             else:
                 key = args[0] + "." + args[1]
-            
+
                 if key in storage.all():
                     instance = storage.all()[key]
                     attr_name = args[2]
