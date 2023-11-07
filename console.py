@@ -87,24 +87,24 @@ class HBNBCommand(cmd.Cmd):
         """Prints all string representations of all instances."""
         args = arg.split()
         if not arg:
-            all_objs = storage.all()
-            obj_list = []
-            for key in all_objs:
-                obj_list.append(str(all_objs[key]))
-            print(obj_list)
+            all_object = storage.all()
+            object_list = []
+            for key in all_object:
+                object_list.append(str(all_object[key]))
+            print(object_list)
         else:
             if args[0] not in ["BaseModel"]:
                 print("** class doesn't exist **")
                 return
-            all_objs = storage.all()
-            obj_list = []
-            for key, obj in all_objs.items():
+            all_object = storage.all()
+            object_list = []
+            for key, obj in all_object.items():
                 if key.split(".")[0] == args[0]:
-                    obj_list.append(str(obj))
-            if not obj_list:
+                    object_list.append(str(obj))
+            if not object_list:
                 print("** no instance found **")
             else:
-                print(obj_list)
+                print(object_list)
     
     def do_update(self, arg):
         """Updates an instance based on the class name and id."""
