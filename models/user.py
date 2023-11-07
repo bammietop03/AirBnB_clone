@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
 This module defines a User class that inherits from BaseModel.
+
 It includes attributes for a user's first name, last name,
 email, and password.
 """
