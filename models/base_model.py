@@ -5,7 +5,9 @@ attributes/methods for other classes
 """
 import uuid
 from datetime import datetime
-from models import storage
+from models.engine.file_storage import FileStorage
+
+storage = FileStorage()
 
 
 class BaseModel:
