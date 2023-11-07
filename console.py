@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-A program called console.py that contains the entry point of the command interpreter
+A program called console.py that contains the entry point of the
+command interpreter
 """
 import cmd
 from models import storage
@@ -9,7 +10,7 @@ from models.base_model import BaseModel
 
 class HBNBCommand(cmd.Cmd):
     """
-    Handles the command-line interpreter for the Holberton Airbnb Clone project.
+    Handles the command-line interpreter for the Airbnb Clone project.
 
     Attributes:
         prompt (str): The custom command prompt, set to "(hbnb)".
@@ -105,7 +106,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
             else:
                 print(object_list)
-    
+
     def do_update(self, arg):
         """Updates an instance based on the class name and id."""
         args = arg.split()
@@ -130,6 +131,6 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** no instance found **")
 
-    
+
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
