@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 """
-This module defines a BaseModel that defines all common
+This module defines a BaseModel class that defines all common
 attributes/methods for other classes
 """
 import uuid
 from datetime import datetime
 import models
+
 
 class BaseModel:
     """
