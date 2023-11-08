@@ -84,3 +84,10 @@ class BaseModel:
         obj_dict['created_at'] = self.created_at.isoformat()
         obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict
+
+    @classmethod
+    def get_subclasses(cls):
+        subclasses = [cls]  # Include the base class itself
+        for subclass in cls.__subclasses__():
+            subclasses.append(subclass)
+        return subclasses
