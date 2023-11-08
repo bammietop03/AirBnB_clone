@@ -39,10 +39,14 @@ class TestFileStorage(unittest.TestCase):
 
         Checks if the test file exists and removes it if it does.
         """
-        if os.path.exists(self.file_path):
-            os.remove(self.file_path)
+        full_path = os.path.abspath(self.file_path)
+        if os.path.exists(full_path):
+            os.remove(full_path)
 
     def test_all(self):
+        self.assertIsInstance(self.storage.all(), dict)
+
+    def test_new(self):
         """
         1. Create some test objects
         2. Add objects to storage
@@ -77,37 +81,24 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(f"Place.{obj6.id}", all_objects)
         self.assertIn(f"Review.{obj7.id}", all_objects)
 
-    def test_new(self):
-        """
-
-        """
-        # Create a test object
-        obj = BaseModel()
+    def test_save_reload(self):
+        # Create some test objects
         obj1 = BaseModel()
         obj2 = User()
         obj3 = State()
         obj4 = City()
         obj5 = Amenity()
         obj6 = Place()
-                                                        obj7 = Review()
-
-        # Add the object to storage
-        self.storage.new(obj)
-
-        # Check if the object is present in storage
-        all_objects = self.storage.all()
-        self.assertIn(f"BaseModel.{obj.id}", all_objects)
-
-    def test_save_reload(self):
-        # Create some test objects
-        obj1 = BaseModel()
-        obj2 = User()
-        obj3 = State()
+        obj7 = Review()
 
         # Add objects to storage
         self.storage.new(obj1)
         self.storage.new(obj2)
         self.storage.new(obj3)
+        self.storage.new(obj4)
+        self.storage.new(obj5)
+        self.storage.new(obj6)
+        self.storage.new(obj7)
 
         # Save and reload storage
         self.storage.save()
@@ -118,6 +109,12 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(f"BaseModel.{obj1.id}", all_objects)
         self.assertIn(f"User.{obj2.id}", all_objects)
         self.assertIn(f"State.{obj3.id}", all_objects)
+        self.assertIn(f"City.{obj4.id}", all_objects)
+        self.assertIn(f"Amenity.{obj5.id}", all_objects)
+        self.assertIn(f"Place.{obj6.id}", all_objects)
+        self.assertIn(f"Review.{obj7.id}", all_objects)
+        self.assertIsInstance(all_objects, dict)
+    
 
     def test_reload_nonexistent_file(self):
         # Attempt to reload from a non-existent file
@@ -125,7 +122,13 @@ class TestFileStorage(unittest.TestCase):
 
         # Check if storage is empty
         all_objects = self.storage.all()
+        self.assertEqual(len(all_objects), 7)
+
+    def test_all_empty_storage(self):
+        # Test 'all' method when storage is empty
+        all_objects = self.storage.all()
         self.assertEqual(len(all_objects), 0)
+        self.assertIsInstance(all_objects, dict)
 
 if __name__ == '__main__':
     unittest.main()
