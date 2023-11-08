@@ -87,7 +87,7 @@ class BaseModel:
 
     @classmethod
     def get_subclasses(cls):
-        subclasses = [cls]  # Include the base class itself
+        subclasses = [cls]
         for subclass in cls.__subclasses__():
             subclasses.append(subclass)
         return subclasses
