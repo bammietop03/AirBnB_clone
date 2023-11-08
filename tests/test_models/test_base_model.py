@@ -1,13 +1,12 @@
 import unittest
 from datetime import datetime
-from models import base_model
+from models.base_model import BaseModel
 
-BaseModel = base_model.BaseModel
 
 class TestBaseModel(unittest.TestCase):
 
     def test_base_model_creation(self):
-        # Test creating a BaseModel instance
+        """Test creating a BaseModel instance"""
         obj = BaseModel()
         self.assertIsInstance(obj, BaseModel)
         self.assertTrue(hasattr(obj, 'id'))
@@ -15,7 +14,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(hasattr(obj, 'updated_at'))
 
     def test_base_model_init_with_kwargs(self):
-        # Test creating a BaseModel instance with keyword arguments
+        """Test creating a BaseModel instance with keyword arguments"""
         data = {
             'id': 'test_id',
             'created_at': datetime.now().isoformat(),
@@ -27,21 +26,21 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(obj.updated_at, datetime)
 
     def test_base_model_str_representation(self):
-        # Test the __str__ method of BaseModel
+        """Test the __str__ method of BaseModel"""
         obj = BaseModel()
         obj_str = str(obj)
         self.assertIn('BaseModel', obj_str)
         self.assertIn(obj.id, obj_str)
 
     def test_base_model_save(self):
-        # Test the save method of BaseModel
+        """Test the save method of BaseModel"""
         obj = BaseModel()
         original_updated_at = obj.updated_at
         obj.save()
         self.assertNotEqual(obj.updated_at, original_updated_at)
 
     def test_base_model_to_dict(self):
-        # Test the to_dict method of BaseModel
+        """Test the to_dict method of BaseModel"""
         obj = BaseModel()
         obj_dict = obj.to_dict()
         self.assertIsInstance(obj_dict, dict)
@@ -50,25 +49,25 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn('updated_at', obj_dict)
 
     def test_base_model_id_generation(self):
-        # Test that unique IDs are generated for BaseModel instances
+        """Test that unique IDs are generated for BaseModel instances"""
         obj1 = BaseModel()
         obj2 = BaseModel()
         self.assertNotEqual(obj1.id, obj2.id)
 
     def test_base_model_created_at(self):
-        # Test that 'created_at' is a valid datetime object
+        """Test that 'created_at' is a valid datetime object"""
         obj = BaseModel()
         self.assertIsInstance(obj.created_at, datetime)
 
     def test_base_model_updated_at(self):
-        # Test that 'updated_at' is updated when calling save()
+        """Test that 'updated_at' is updated when calling save()"""
         obj = BaseModel()
         original_updated_at = obj.updated_at
         obj.save()
         self.assertNotEqual(obj.updated_at, original_updated_at)
 
     def test_base_model_to_dict_format(self):
-        # Test the format of the dictionary returned by to_dict()
+        """Test the format of the dictionary returned by to_dict()"""
         obj = BaseModel()
         obj_dict = obj.to_dict()
         self.assertEqual(obj_dict['__class__'], 'BaseModel')
@@ -76,12 +75,15 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(obj_dict['updated_at'], obj.updated_at.isoformat())
 
     def test_datetime_attributes(self):
-        # Test the 'created_at' and 'updated_at' attributes are datetime objects
+        """Test the 'created_at' and 'updated_at' attributes are datetime
+        objects"""
         obj = BaseModel()
         self.assertIsInstance(obj.created_at, datetime)
         self.assertIsInstance(obj.updated_at, datetime)
 
     def test_datetime_attributes_have_microsecond_precision(self):
+        """Test microsecond precision of the `updated_at` attribute in a
+        BaseModel instance."""
         obj = BaseModel()
         self.assertGreaterEqual(
             obj.updated_at.microsecond, 0
@@ -91,11 +93,12 @@ class TestBaseModel(unittest.TestCase):
         )
 
     def test_str(self):
-        # Test the string representation of the object
+        """Test the string representation of the object"""
         obj = BaseModel()
         obj_str = str(obj)
         self.assertIn('BaseModel', obj_str)
         self.assertIn(obj.id, obj_str)
+
 
 if __name__ == '__main__':
     unittest.main()
