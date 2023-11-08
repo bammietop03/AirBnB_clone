@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 Unit tests using the unittest module to test the functionality
-of the FileStorage class. 
+of the FileStorage class.
 """
 import unittest
 import os
@@ -44,6 +44,7 @@ class TestFileStorage(unittest.TestCase):
             os.remove(full_path)
 
     def test_all(self):
+        """ testing if self.storage.all() is an instance of dict"""
         self.assertIsInstance(self.storage.all(), dict)
 
     def test_new(self):
@@ -82,7 +83,12 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(f"Review.{obj7.id}", all_objects)
 
     def test_save_reload(self):
-        # Create some test objects
+        """
+        1. Create some test objects
+        2. Add objects to storage
+        3. Save and reload storage
+        4. Check if objects are present in reloaded storage
+        """
         obj1 = BaseModel()
         obj2 = User()
         obj3 = State()
@@ -91,7 +97,6 @@ class TestFileStorage(unittest.TestCase):
         obj6 = Place()
         obj7 = Review()
 
-        # Add objects to storage
         self.storage.new(obj1)
         self.storage.new(obj2)
         self.storage.new(obj3)
@@ -100,11 +105,9 @@ class TestFileStorage(unittest.TestCase):
         self.storage.new(obj6)
         self.storage.new(obj7)
 
-        # Save and reload storage
         self.storage.save()
         self.storage.reload()
 
-        # Check if objects are present in reloaded storage
         all_objects = self.storage.all()
         self.assertIn(f"BaseModel.{obj1.id}", all_objects)
         self.assertIn(f"User.{obj2.id}", all_objects)
@@ -114,21 +117,13 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn(f"Place.{obj6.id}", all_objects)
         self.assertIn(f"Review.{obj7.id}", all_objects)
         self.assertIsInstance(all_objects, dict)
-    
-
-    def test_reload_nonexistent_file(self):
-        # Attempt to reload from a non-existent file
-        self.storage.reload()
-
-        # Check if storage is empty
-        all_objects = self.storage.all()
-        self.assertEqual(len(all_objects), 7)
 
     def test_all_empty_storage(self):
-        # Test 'all' method when storage is empty
+        """ Test 'all' method when storage is empty"""
         all_objects = self.storage.all()
         self.assertEqual(len(all_objects), 0)
         self.assertIsInstance(all_objects, dict)
+
 
 if __name__ == '__main__':
     unittest.main()
