@@ -13,6 +13,9 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+class_names = [subclass.__name__ for subclass in BaseModel.get_subclasses()]
+
+
 class HBNBCommand(cmd.Cmd):
     """
     Handles the command-line interpreter for the Airbnb Clone project.
@@ -52,13 +55,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             args = arg.split()
-            try:
-                if args[0] in ["BaseModel", "User", "Amenity",
-                               "City", "Place", "Review", "State"]:
-                    new_instance = eval(args[0])()
-                    new_instance.save()
-                    print(new_instance.id)
-            except Exception:
+            if args[0] in class_names:
+                new_instance = eval(args[0])()
+                new_instance.save()
+                print(new_instance.id)
+            else:
                 print("** class doesn't exist **")
 
     def do_show(self, arg):
@@ -70,8 +71,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             args = arg.split()
 
-            if args[0] not in ["BaseModel", "User", "Amenity",
-                               "City", "Place", "Review", "State"]:
+            if args[0] not in class_names:
                 print("** class doesn't exist **")
             elif len(args) < 2:
                 print("** instance id missing **")
@@ -92,8 +92,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             args = arg.split()
 
-            if args[0] not in ["BaseModel", "User", "Amenity",
-                               "City", "Place", "Review", "State"]:
+            if args[0] not in class_names:
                 print("** class doesn't exist **")
             elif len(args) < 2:
                 print("** instance id missing **")
@@ -119,8 +118,7 @@ class HBNBCommand(cmd.Cmd):
             print(object_list)
         else:
             args = arg.split()
-            if args[0] not in ["BaseModel", "User", "Amenity",
-                               "City", "Place", "Review", "State"]:
+            if args[0] not in class_names:
                 print("** class doesn't exist **")
                 return
 
@@ -146,8 +144,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             args = arg.split()
 
-            if args[0] not in ["BaseModel", "User", "Amenity",
-                               "City", "Place", "Review", "State"]:
+            if args[0] not in class_names:
                 print("** class doesn't exist **")
             elif len(args) < 2:
                 print("** instance id missing **")
