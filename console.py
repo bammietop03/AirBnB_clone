@@ -13,8 +13,8 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
-
 class_names = [subclass.__name__ for subclass in BaseModel.get_subclasses()]
+
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -61,7 +61,7 @@ class HBNBCommand(cmd.Cmd):
                 new_instance.save()
                 print(new_instance.id)
             else:
-                    print("** class doesn't exist **")
+                print("** class doesn't exist **")
 
     def do_show(self, arg):
         """Prints the string representation of an instance based on the class
