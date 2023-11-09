@@ -51,7 +51,7 @@ class HBNBCommand(cmd.Cmd):
     def precmd(self, arg):
         if "." in arg:
             new_str = re.sub(r'[)"]', "", arg)
-            new_str = re.sub(r'[(.]', " ", new_str).split()
+            new_str = re.sub(r'[(.,]', " ", new_str).split()
             new_str[0], new_str[1] = new_str[1], new_str[0]
             arg = " ".join(new_str)
         return super().precmd(arg)
@@ -162,10 +162,10 @@ class HBNBCommand(cmd.Cmd):
                     instance = storage.all()[key]
                     attr_name = args[2]
                     attr_value = args[3]
-                    setattr(instance, attr_name, eval(attr_value))
+                    setattr(instance, attr_name, attr_value)
                     instance.save()
                 else:
-                    print("** no instance found **")
+                    print("** no instance found **") 
 
     def do_count(self, arg):
         """Retrieves the number of instances of a specified class.
