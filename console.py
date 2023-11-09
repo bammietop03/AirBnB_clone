@@ -47,6 +47,14 @@ class HBNBCommand(cmd.Cmd):
         """Do nothing on an empty line"""
         pass
 
+    def precmd(self, arg):
+        if arg.endswith("()"):
+            args = arg[:-2]
+            class_name = args.split('.')[0]
+            arg = args.replace(".", " ").split()[1] + " " + class_name
+
+        return super().precmd(arg)
+
     def do_create(self, arg):
         """ creates a new instance of BaseModel or User, saves it
         (to the JSON file) and prints the id. Ex: $ create BaseModel
@@ -158,13 +166,20 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print("** no instance found **")
 
-    def precmd(self, arg):
-        if arg.endswith("()"):
-            args = arg[:-2]
-            class_name = args.split('.')[0]
-            arg = args.replace(".", " ").split()[1] + " " + class_name
-
-        return super().precmd(arg)
+    def do_count(self, arg):
+        """Retrieves the number of instances of a specified class.
+        Usage: <class name>.count()
+        """
+        if not arg:
+            print("** class name missing **")
+        else:
+            args = arg.split()
+            if args[0] not in class_names:
+                print("** class doesn't exist **")
+            else:
+                count = len([obj for obj in storage.all().values() if
+                            isinstance(obj, eval(args[0]))])
+                print(count)
 
 
 if __name__ == "__main__":
