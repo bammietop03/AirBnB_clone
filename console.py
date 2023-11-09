@@ -109,30 +109,24 @@ class HBNBCommand(cmd.Cmd):
         """Prints all string representation of all instances based or not on
         the class name. Ex: $ all BaseModel or $ all.
         """
-        if not arg:
-            all_object = storage.all()
-            object_list = []
+        all_object = storage.all()
+        object_list = []
 
-            for key in all_object:
-                object_list.append(str(all_object[key]))
-            print(object_list)
-        else:
+        if arg:
             args = arg.split()
             if args[0] not in class_names:
                 print("** class doesn't exist **")
                 return
 
-            all_object = storage.all()
-            object_list = []
+            object_list = [str(obj) for key, obj in all_object.items() if
+                           key.split(".")[0] == args[0]]
+        else:
+            object_list = [str(all_object[key]) for key in all_object]
 
-            for key, obj in all_object.items():
-                if key.split(".")[0] == args[0]:
-                    object_list.append(str(obj))
-
-            if not object_list:
-                print("** no instance found **")
-            else:
-                print(object_list)
+        if not object_list:
+            print("** no instance found **")
+        else:
+            print(object_list)
 
     def do_update(self, arg):
         """Updates an instance based on the class name and id by adding or
@@ -163,6 +157,14 @@ class HBNBCommand(cmd.Cmd):
                     instance.save()
                 else:
                     print("** no instance found **")
+
+    def precmd(self, arg):
+        if arg.endswith("()"):
+            args = arg[:-2]
+            class_name = args.split('.')[0]
+            arg = args.replace(".", " ").split()[1] + " " + class_name
+
+        return super().precmd(arg)
 
 
 if __name__ == "__main__":
