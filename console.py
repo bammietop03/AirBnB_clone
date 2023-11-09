@@ -50,7 +50,7 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, arg):
         if "." in arg:
-            new_str = re.sub(r'[)"]', "", arg)
+            new_str = re.sub(r'[){}:\'"]', "", arg)
             new_str = re.sub(r'[(.,]', " ", new_str).split()
             new_str[0], new_str[1] = new_str[1], new_str[0]
             arg = " ".join(new_str)
