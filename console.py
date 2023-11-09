@@ -4,6 +4,7 @@ A program called console.py that contains the entry point of the
 command interpreter
 """
 import cmd
+import re
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -48,11 +49,11 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def precmd(self, arg):
-        if arg.endswith("()"):
-            args = arg[:-2]
-            class_name = args.split('.')[0]
-            arg = args.replace(".", " ").split()[1] + " " + class_name
-
+        if "." in arg:
+            new_str = re.sub(r'[)"]', "", arg)
+            new_str = re.sub(r'[(.]', " ", new_str).split()
+            new_str[0], new_str[1] = new_str[1], new_str[0]
+            arg = " ".join(new_str)
         return super().precmd(arg)
 
     def do_create(self, arg):
