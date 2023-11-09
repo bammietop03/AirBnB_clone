@@ -5,6 +5,7 @@ command interpreter
 """
 import cmd
 import re
+import json
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -49,8 +50,14 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def precmd(self, arg):
+        """
+        if "update" in arg:
+            class_id, rest_of_command = arg.split(None, 1)
+            rest_of_command = rest_of_command.replace('"', '')
+            return f"{class_id} {rest_of_command}"
+        """    
         if "." in arg:
-            new_str = re.sub(r'[)"]', "", arg)
+            new_str = re.sub(r'[){}:\'"]', "", arg)
             new_str = re.sub(r'[(.,]', " ", new_str).split()
             new_str[0], new_str[1] = new_str[1], new_str[0]
             arg = " ".join(new_str)
@@ -157,12 +164,20 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
             else:
                 key = args[0] + "." + args[1]
-
+    
                 if key in storage.all():
                     instance = storage.all()[key]
-                    attr_name = args[2]
-                    attr_value = args[3]
-                    setattr(instance, attr_name, attr_value)
+                    for i in range(2, len(args) - 1, 2):
+                        if i + 1 < len(args):
+                            attr_name = args[i]
+                            attr_value = args[i + 1]
+                            if attr_value.isdigit():
+                                attr_value = int(attr_value)
+
+                            setattr(instance, attr_name, attr_value)
+                        else:
+                            print("** invalid number of arguments **")
+                            break
                     instance.save()
                 else:
                     print("** no instance found **") 
