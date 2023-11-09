@@ -171,15 +171,14 @@ class HBNBCommand(cmd.Cmd):
         """Retrieves the number of instances of a specified class.
         Usage: <class name>.count()
         """
+        args = arg.split()
         if not arg:
             print("** class name missing **")
         else:
-            args = arg.split()
             if args[0] not in class_names:
                 print("** class doesn't exist **")
             else:
-                count = len([obj for obj in storage.all().values() if
-                            isinstance(obj, eval(args[0]))])
+                count = len([obj for obj in storage.all() if args[0] in obj])
                 print(count)
 
 
