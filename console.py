@@ -54,7 +54,7 @@ class HBNBCommand(cmd.Cmd):
             class_id, rest_of_command = arg.split(None, 1)
             rest_of_command = rest_of_command.replace('"', '')
             return f"{class_id} {rest_of_command}"
-        """    
+        """
         if "." in arg:
             new_str = re.sub(r'[){}:\'"]', "", arg)
             new_str = re.sub(r'[(.,]', " ", new_str).split()
@@ -163,7 +163,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
             else:
                 key = args[0] + "." + args[1]
-    
+
                 if key in storage.all():
                     instance = storage.all()[key]
                     for i in range(2, len(args) - 1, 2):
@@ -179,7 +179,7 @@ class HBNBCommand(cmd.Cmd):
                             break
                     instance.save()
                 else:
-                    print("** no instance found **") 
+                    print("** no instance found **")
 
     def do_count(self, arg):
         """Retrieves the number of instances of a specified class.
