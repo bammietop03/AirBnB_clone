@@ -66,7 +66,7 @@ class HBNBCommand(cmd.Cmd):
         """ creates a new instance of BaseModel or User, saves it
         (to the JSON file) and prints the id. Ex: $ create BaseModel
         """
-        if not arg:
+        if arg is None or arg = "":
             print("** class name missing **")
         else:
             args = arg.split()
@@ -81,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
         """Prints the string representation of an instance based on the class
         name and id. Ex: $ show BaseModel 1234-1234-1234.
         """
-        if not arg:
+        if arg is None or arg = "":
             print("** class name missing **")
         else:
             args = arg.split()
@@ -102,7 +102,7 @@ class HBNBCommand(cmd.Cmd):
         """Deletes an instance based on the class name and id (save the change
         into the JSON file). Ex: $ destroy BaseModel 1234-1234-1234.
         """
-        if not arg:
+        if arg is None or arg = "":
             print("** class name missing **")
         else:
             args = arg.split()
@@ -148,7 +148,7 @@ class HBNBCommand(cmd.Cmd):
         updating attribute (save the change into the JSON file).
         Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
         """
-        if not arg:
+        if arg is None or arg = "":
             print("** class name missing **")
         else:
             args = arg.split()
@@ -186,7 +186,7 @@ class HBNBCommand(cmd.Cmd):
         Usage: <class name>.count()
         """
         args = arg.split()
-        if not arg:
+        if arg is None or arg = "":
             print("** class name missing **")
         else:
             if args[0] not in class_names:
