@@ -67,7 +67,7 @@ class HBNBCommand(cmd.Cmd):
         (to the JSON file) and prints the id. Ex: $ create BaseModel
         """
         if not arg:
-            prinot nt("** class name missing **")
+            print("** class name missing **")
         else:
             args = arg.split()
             if args[0] in class_names:
