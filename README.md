@@ -1,4 +1,4 @@
-## AirBnB_clone
+# AirBnB_clone
 Welcome to the AirBnB clone project
 
 <img src="https://miro.medium.com/v2/resize:fit:1358/0*NChTo-XqLOxLabIW" width="1500" height="200">
@@ -17,6 +17,12 @@ This is the first step towards building your first full web application: the Air
 5. create all unittests to validate all our classes and storage engine
 
 ## What’s a command interpreter?
+
+### Processing Commands
+The interpreter uses a loop to read all lines from its input, parse them, and then dispatch the command
+to an appropriate command handler. The command, and any other text on the line. If the user enters a
+command ``` all User ```, and your class includes a method named do_all(), it is called with "User" as the only argument.
+
 Do you remember the Shell? It’s exactly the same but limited to a specific use-case. In our case, we want to be able to manage the objects of our project:
 
 ## How to start
