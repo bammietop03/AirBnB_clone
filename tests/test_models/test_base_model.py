@@ -1,4 +1,5 @@
 import unittest
+"""This module defines unittests for the BaseModel"""
 from datetime import datetime
 from models.base_model import BaseModel
 
