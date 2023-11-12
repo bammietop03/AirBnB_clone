@@ -60,6 +60,7 @@ class TestConsoleCommands(unittest.TestCase):
             self.console.onecmd("update BaseModel")
             self.assertEqual(mock_stdout.getvalue().strip(),
                              "** instance id missing **")
+
     def test_do_count(self):
         """ Testing Count command """
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
