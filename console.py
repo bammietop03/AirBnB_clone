@@ -137,7 +137,12 @@ class HBNBCommand(cmd.Cmd):
                            key.split(".")[0] == args[0]]
         else:
             object_list = [str(all_object[key]) for key in all_object]
-            print(object_list)
+            
+            if not object_list:
+                print("** no instance found **")
+            else:
+                print(object_list)
+
 
     def do_update(self, arg):
         """Updates an instance based on the class name and id by adding or
