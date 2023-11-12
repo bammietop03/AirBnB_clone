@@ -135,7 +135,7 @@ class TestFileStorage(unittest.TestCase):
         """ testing new with args """
         with self.assertRaises(TypeError):
             storage.new(BaseModel(), 1)
-    
+
     def test_new_with_None(self):
         """ testing new with none """
         with self.assertRaises(AttributeError):
@@ -151,25 +151,25 @@ class TestFileStorage(unittest.TestCase):
         with self.assertRaises(TypeError):
             storage.reload(None)
 
-    def test_FileStorage_instantiation_no_args(self):
-        """testing"""
+    def test_FileStorage_no_args(self):
+        """testing FileStorage with no args"""
         self.assertEqual(type(FileStorage()), FileStorage)
 
-    def test_FileStorage_instantiation_with_arg(self):
-        """testing"""
+    def test_FileStorage_with_arg(self):
+        """testing FileStorage with args"""
         with self.assertRaises(TypeError):
             FileStorage(None)
 
     def test_FileStorage_file_path_is_private_str(self):
-        """testing"""
+        """testing file_path is a private str"""
         self.assertEqual(str, type(FileStorage._FileStorage__file_path))
 
-    def testFileStorage_objects_is_private_dict(self):
-        """testing"""
+    def test_FileStorage_objects_is_private_dict(self):
+        """testing file_path is private dict"""
         self.assertEqual(dict, type(FileStorage._FileStorage__objects))
 
-    def test_storage_initializes(self):
-        """testing"""
+    def test_storage(self):
+        """testing storage """
         self.assertEqual(type(storage), FileStorage)
 
 
