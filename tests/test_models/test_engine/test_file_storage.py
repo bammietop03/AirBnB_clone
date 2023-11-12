@@ -126,34 +126,51 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(len(all_objects), 0)
         self.assertIsInstance(all_objects, dict)
 
-    """
     def test_all_with_arg(self):
-        test all with none
+        """test all with none"""
         with self.assertRaises(TypeError):
             storage.all(None)
-    """
 
     def test_new_with_args(self):
         """ testing new with args """
         with self.assertRaises(TypeError):
             storage.new(BaseModel(), 1)
     
-    """
     def test_new_with_None(self):
-         testing new with args 
+        """ testing new with none """
         with self.assertRaises(AttributeError):
             storage.new(None)
 
     def test_save_with_none(self):
-        testing save with none 
+        """ testing save with none """
         with self.assertRaises(TypeError):
             storage.save(None)
 
-    def test_reload_with_arg(self):
-         testing reload with args
+    def test_reload_with_none(self):
+        """testing reload with none """
         with self.assertRaises(TypeError):
             storage.reload(None)
-    """
+
+    def test_FileStorage_instantiation_no_args(self):
+        """testing"""
+        self.assertEqual(type(FileStorage()), FileStorage)
+
+    def test_FileStorage_instantiation_with_arg(self):
+        """testing"""
+        with self.assertRaises(TypeError):
+            FileStorage(None)
+
+    def test_FileStorage_file_path_is_private_str(self):
+        """testing"""
+        self.assertEqual(str, type(FileStorage._FileStorage__file_path))
+
+    def testFileStorage_objects_is_private_dict(self):
+        """testing"""
+        self.assertEqual(dict, type(FileStorage._FileStorage__objects))
+
+    def test_storage_initializes(self):
+        """testing"""
+        self.assertEqual(type(storage), FileStorage)
 
 
 if __name__ == '__main__':
