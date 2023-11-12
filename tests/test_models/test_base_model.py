@@ -5,7 +5,7 @@ from models.base_model import BaseModel
 
 
 class TestBaseModel(unittest.TestCase):
-
+    """The defined class with different cases to test BaseModel class"""
     def test_base_model_creation(self):
         """Test creating a BaseModel instance"""
         obj = BaseModel()

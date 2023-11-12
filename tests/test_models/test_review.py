@@ -7,6 +7,7 @@ from models.base_model import BaseModel
 
 
 class TestReview(unittest.TestCase):
+    """The defined class with different cases to test Review class"""
     def setUp(self):
         """Set up a new Review instance for each test."""
         self.review = Review()

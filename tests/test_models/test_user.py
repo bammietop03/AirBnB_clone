@@ -6,7 +6,7 @@ from models.base_model import BaseModel
 
 
 class TestUser(unittest.TestCase):
-
+    """The defined class with different cases to test User class"""
     def test_user_attributes(self):
         """Test the existence of User attributes"""
         user = User()
