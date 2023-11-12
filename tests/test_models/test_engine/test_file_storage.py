@@ -13,6 +13,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from models.engine.file_storage import FileStorage
+from models import storage
 
 
 class TestFileStorage(unittest.TestCase):
@@ -31,6 +32,7 @@ class TestFileStorage(unittest.TestCase):
         self.file_path = "test_file.json"
         self.storage = FileStorage()
         self.storage._FileStorage__file_path = self.file_path
+        storage.all().clear()
 
     def tearDown(self):
         """
@@ -40,8 +42,14 @@ class TestFileStorage(unittest.TestCase):
         Checks if the test file exists and removes it if it does.
         """
         full_path = os.path.abspath(self.file_path)
+        print(f"Teardown: Full path: {full_path}")
+
         if os.path.exists(full_path):
+            print(f"Teardown: Removing file at {full_path}")
             os.remove(full_path)
+        else:
+            print(f"Teardown: File does not exist at {full_path}")
+
 
     def test_all(self):
         """ testing if self.storage.all() is an instance of dict"""

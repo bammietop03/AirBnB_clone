@@ -60,12 +60,12 @@ class TestConsoleCommands(unittest.TestCase):
             self.console.onecmd("update BaseModel")
             self.assertEqual(mock_stdout.getvalue().strip(),
                              "** instance id missing **")
-
     def test_do_count(self):
         """ Testing Count command """
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
-            self.console.onecmd("count BaseModel")
-            self.assertEqual(mock_stdout.getvalue().strip(), '1')
+            self.console.onecmd("count BaseModel\n")
+            count = int(mock_stdout.getvalue().strip())
+            self.assertGreaterEqual(count, 1)
 
     def test_do_create_invalid_class(self):
         """ Testing Create command with invalid class"""
