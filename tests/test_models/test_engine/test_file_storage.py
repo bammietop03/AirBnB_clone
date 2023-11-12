@@ -42,13 +42,8 @@ class TestFileStorage(unittest.TestCase):
         Checks if the test file exists and removes it if it does.
         """
         full_path = os.path.abspath(self.file_path)
-        print(f"Teardown: Full path: {full_path}")
-
         if os.path.exists(full_path):
-            print(f"Teardown: Removing file at {full_path}")
             os.remove(full_path)
-        else:
-            print(f"Teardown: File does not exist at {full_path}")
 
     def test_all(self):
         """ testing if self.storage.all() is an instance of dict"""
@@ -130,6 +125,31 @@ class TestFileStorage(unittest.TestCase):
         all_objects = self.storage.all()
         self.assertEqual(len(all_objects), 0)
         self.assertIsInstance(all_objects, dict)
+
+    def test_all_with_arg(self):
+        """ test all with none """
+        with self.assertRaises(TypeError):
+            storage.all(None)
+
+    def test_new_with_args(self):
+        """ testing new with args """
+        with self.assertRaises(TypeError):
+            storage.new(BaseModel(), 1)
+
+    def test_new_with_None(self):
+        """ testing new with args """
+        with self.assertRaises(AttributeError):
+            storage.new(None)
+
+    def test_save_with_arg(self):
+        """ testing new with args """
+        with self.assertRaises(TypeError):
+            storage.save(None)
+
+    def test_reload_with_arg(self):
+        """ testing new with args """
+        with self.assertRaises(TypeError):
+            storage.reload(None)
 
 
 if __name__ == '__main__':
