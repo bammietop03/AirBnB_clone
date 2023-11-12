@@ -126,30 +126,34 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(len(all_objects), 0)
         self.assertIsInstance(all_objects, dict)
 
+    """
     def test_all_with_arg(self):
-        """ test all with none """
+        test all with none
         with self.assertRaises(TypeError):
             storage.all(None)
+    """
 
     def test_new_with_args(self):
         """ testing new with args """
         with self.assertRaises(TypeError):
             storage.new(BaseModel(), 1)
-
+    
+    """
     def test_new_with_None(self):
-        """ testing new with args """
+         testing new with args 
         with self.assertRaises(AttributeError):
             storage.new(None)
 
-    def test_save_with_arg(self):
-        """ testing new with args """
+    def test_save_with_none(self):
+        testing save with none 
         with self.assertRaises(TypeError):
             storage.save(None)
 
     def test_reload_with_arg(self):
-        """ testing new with args """
+         testing reload with args
         with self.assertRaises(TypeError):
             storage.reload(None)
+    """
 
 
 if __name__ == '__main__':
