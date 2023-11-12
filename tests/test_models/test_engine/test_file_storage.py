@@ -50,7 +50,6 @@ class TestFileStorage(unittest.TestCase):
         else:
             print(f"Teardown: File does not exist at {full_path}")
 
-
     def test_all(self):
         """ testing if self.storage.all() is an instance of dict"""
         self.assertIsInstance(self.storage.all(), dict)
