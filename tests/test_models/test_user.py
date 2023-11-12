@@ -3,6 +3,7 @@
 import unittest
 from models.user import User
 from models.base_model import BaseModel
+from datetime import datetime
 
 
 class TestUser(unittest.TestCase):
@@ -53,6 +54,22 @@ class TestUser(unittest.TestCase):
         user = User()
         user_str = str(user)
         self.assertIn('User', user_str)
+
+    def test_id_generation(self):
+        """Test the generation of a unique ID."""
+        self.user = User()
+        self.assertIsNotNone(self.user.id)
+        self.assertEqual(len(self.user.id), 36)
+
+    def test_created_at_type(self):
+        """Test the type of the 'created_at' attribute."""
+        self.user = User()
+        self.assertIsInstance(self.user.created_at, datetime)
+
+    def test_updated_at_type(self):
+        """Test the type of the 'updated_at' attribute."""
+        self.user = User()
+        self.assertIsInstance(self.user.updated_at, datetime)
 
 
 if __name__ == '__main__':
