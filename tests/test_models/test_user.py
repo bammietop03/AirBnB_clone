@@ -48,15 +48,23 @@ class TestUser(unittest.TestCase):
 
     def test_to_dict_method(self):
         """Test that the to_dict() method returns a dictionary"""
-        user = User()
-        user_dict = user.to_dict()
+        self.user = User()
+        user_dict = self.user.to_dict()
         self.assertIsInstance(user_dict, dict)
+        self.assertEqual(user_dict['id'], self.user.id)
+        self.assertEqual(user_dict['created_at'],
+                         self.user.created_at.isoformat())
+        self.assertEqual(user_dict['updated_at'],
+                         self.user.updated_at.isoformat())
 
     def test_str_method(self):
         """Test the string representation of the User object"""
-        user = User()
-        user_str = str(user)
+        self.user = User()
+        user_str = str(self.user)
         self.assertIn('User', user_str)
+        self.assertIn(self.user.__class__.__name__, user_str)
+        self.assertIn(self.user.id, user_str)
+        self.assertIn(str(self.user.__dict__), user_str)
 
     def test_id_generation(self):
         """Test the generation of a unique ID."""
