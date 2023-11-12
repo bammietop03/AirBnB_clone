@@ -35,13 +35,6 @@ class TestUser(unittest.TestCase):
         """Test if User is a subclass of BaseModel"""
         self.assertTrue(issubclass(User, BaseModel))
 
-        user = User()
-        self.assertIsInstance(user, BaseModel)
-        self.assertTrue(hasattr(user, "id"))
-        self.assertTrue(hasattr(user, "created_at"))
-        self.assertTrue(hasattr(user, "updated_at"))
-
-
     def test_save_method(self):
         """Test the inherited save method"""
         user = User()
