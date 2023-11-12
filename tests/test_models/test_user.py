@@ -10,10 +10,13 @@ class TestUser(unittest.TestCase):
     """The defined class with different cases to test User class"""
     def test_user_attributes(self):
         """Test the existence of User attributes"""
-        user = User()
-        self.assertTrue(hasattr(user, 'email'))
-        self.assertTrue(hasattr(user, 'password'))
-        self.assertTrue(hasattr(user, 'first_name'))
+        self.user = User()
+        self.assertTrue(hasattr(self.user, 'email'))
+        self.assertTrue(hasattr(self.user, 'password'))
+        self.assertTrue(hasattr(self.user, 'first_name'))
+        self.assertTrue(hasattr(self.user, 'id'))
+        self.assertTrue(hasattr(self.user, 'created_at'))
+        self.assertTrue(hasattr(self.user, 'updated_at'))
 
     def test_user_attributes_default_values(self):
         """Test that the default values of User attributes are empty strings"""
