@@ -134,10 +134,9 @@ class HBNBCommand(cmd.Cmd):
                 return
 
             object_list = [str(obj) for key, obj in all_object.items() if
-                           key.split(".")[0] == args[0]]
+                           key]
         else:
-            object_list = [str(all_object[key]) for key in
-                           all_object.values()]
+            object_list = [str(obj) for obj in all_object.values()]
 
         if not object_list:
             print("** no instance found **")
