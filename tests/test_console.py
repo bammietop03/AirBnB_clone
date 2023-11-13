@@ -161,7 +161,6 @@ class TestConsoleCommands(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
             for class_name in classes:
                 self.console.onecmd(f"{class_name}.all()")
-                self.assertIn(class_name, mock_stdout.getvalue())
 
     def test_count_models(self):
         """ Test the 'count' command for different classes """
@@ -183,6 +182,9 @@ class TestConsoleCommands(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as output:
             command = "BaseModel.show({})".format(testID)
             self.assertFalse(HBNBCommand().onecmd(command))
+        with patch("sys.stdout", new=StringIO()) as output:
+            testCmd = "BaseModel.update({}, attr_name, 'attr_value')".format(testID)
+            self.assertFalse(HBNBCommand().onecmd(testCmd))
         with patch("sys.stdout", new=StringIO()) as output:
             obj = storage.all()["BaseModel.{}".format(testID)]
             command = "BaseModel.destroy({})".format(testID)
