@@ -14,6 +14,7 @@ class TestUser(unittest.TestCase):
         self.assertTrue(hasattr(self.user, 'email'))
         self.assertTrue(hasattr(self.user, 'password'))
         self.assertTrue(hasattr(self.user, 'first_name'))
+        self.assertTrue(hasattr(self.user, 'last_name'))
         self.assertTrue(hasattr(self.user, 'id'))
         self.assertTrue(hasattr(self.user, 'created_at'))
         self.assertTrue(hasattr(self.user, 'updated_at'))
@@ -24,6 +25,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.email, "")
         self.assertEqual(user.password, "")
         self.assertEqual(user.first_name, "")
+        self.assertEqual(user.last_name, "")
 
     def test_user_attributes_assignment(self):
         """Test assigning values to User attributes"""
@@ -31,9 +33,11 @@ class TestUser(unittest.TestCase):
         user.email = "user@example.com"
         user.password = "password123"
         user.first_name = "John"
+        user.last_name = "Edwards"
         self.assertEqual(user.email, "user@example.com")
         self.assertEqual(user.password, "password123")
         self.assertEqual(user.first_name, "John")
+        self.assertEqual(user.last_name, "Edwards")
 
     def test_is_subclass(self):
         """Test if User is a subclass of BaseModel"""

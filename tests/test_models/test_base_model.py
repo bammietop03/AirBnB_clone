@@ -100,6 +100,14 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn('BaseModel', obj_str)
         self.assertIn(obj.id, obj_str)
 
+    def test_base_model_save(self):
+        """Test the save method of BaseModel"""
+        obj = BaseModel()
+        original_updated_at = obj.updated_at
+        save_output = obj.save()
+        self.assertNotEqual(obj.updated_at, original_updated_at)
+        self.assertEqual(save_output, None)
+
 
 if __name__ == '__main__':
     unittest.main()
