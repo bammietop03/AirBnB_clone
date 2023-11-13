@@ -1,8 +1,10 @@
-import unittest
+#!/usr/bin/env python3
 """This module defines unittests for the BaseModel"""
+import unittest
+from unittest import mock
 from datetime import datetime
-from time import sleep
 from models.base_model import BaseModel
+from models import storage
 
 
 class TestBaseModel(unittest.TestCase):
@@ -104,11 +106,16 @@ class TestBaseModel(unittest.TestCase):
     def test_base_model_save(self):
         """Test the save method of BaseModel"""
         obj = BaseModel()
-        sleep(0.05)
         original_updated_at = obj.updated_at
         save_output = obj.save()
         self.assertNotEqual(obj.updated_at, original_updated_at)
         self.assertIsNone(save_output)
+
+    @mock.patch.object(storage, 'save')
+    def test_save_calls_storage_save(self, mocked_save):
+        obj = BaseModel()
+        obj.save()
+        mocked_save.assert_called_once()
 
 
 if __name__ == '__main__':
