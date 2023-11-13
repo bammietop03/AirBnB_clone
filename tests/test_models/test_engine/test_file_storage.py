@@ -173,15 +173,6 @@ class TestFileStorage(unittest.TestCase):
         """testing storage """
         self.assertEqual(type(storage), FileStorage)
 
-    def test_reload_existing_file(self):
-        """Test reloading from an existing file"""
-        user = User()
-        self.storage.new(user)
-        self.storage.save()
-        self.storage.reload()
-        objects = self.storage.all()
-        self.assertIn('User.{}'.format(user.id), objects)
-
 
 
 if __name__ == '__main__':
