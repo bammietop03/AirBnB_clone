@@ -106,7 +106,7 @@ class TestBaseModel(unittest.TestCase):
         original_updated_at = obj.updated_at
         save_output = obj.save()
         self.assertNotEqual(obj.updated_at, original_updated_at)
-        self.assertEqual(save_output, None)
+        self.assertIsNone(save_output)
 
 
 if __name__ == '__main__':
