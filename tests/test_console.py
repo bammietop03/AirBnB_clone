@@ -6,6 +6,12 @@ from unittest.mock import patch
 from console import HBNBCommand
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class TestConsoleCommands(unittest.TestCase):
@@ -137,6 +143,15 @@ class TestConsoleCommands(unittest.TestCase):
             self.console.onecmd("update BaseModel 1234-5678 attribute_name")
             self.assertEqual(mock_stdout.getvalue().strip(),
                              "** value missing **")
+
+    def test_all_models(self):
+        """ Test the 'all' command for different classes """
+        classes = ['BaseModel', 'User', 'State', 'City',
+                   'Place', 'Amenity', 'Review']
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            for class_name in classes:
+                self.console.onecmd(f"{class_name}.all()")
+                self.assertIn(class_name, mock_stdout.getvalue())
 
 
 if __name__ == '__main__':
