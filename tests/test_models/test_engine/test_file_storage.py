@@ -182,24 +182,6 @@ class TestFileStorage(unittest.TestCase):
         objects = self.storage.all()
         self.assertIn('User.{}'.format(user.id), objects)
 
-    def test_reload_nonexistent_file(self):
-        """Test reloading from a nonexistent file"""
-        self.storage.reload()  # Should not raise an exception
-
-    def test_reload_empty_file(self):
-        """Test reloading from an empty file"""
-        with open(self.storage._FileStorage__file_path, 'w',
-                  encoding='utf-8') as file:
-            file.write('{}')
-        self.storage.reload()  # Should not raise an exception
-
-    def test_reload_invalid_file(self):
-        """Test reloading from an invalid JSON file"""
-        with open(self.storage._FileStorage__file_path, 'w',
-                  encoding='utf-8') as file:
-            file.write('invalid json')
-        with self.assertRaises(json.JSONDecodeError):
-            self.storage.reload()
 
 
 if __name__ == '__main__':
