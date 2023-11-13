@@ -154,6 +154,15 @@ class TestConsoleCommands(unittest.TestCase):
             self.assertEqual(mock_stdout.getvalue().strip(),
                              "** value missing **")
 
+    def test_all_models1(self):
+        """ Test the 'all' command for different classes """
+        classes = ['BaseModel', 'User', 'State', 'City',
+                   'Place', 'Amenity', 'Review']
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            for class_name in classes:
+                self.console.onecmd(f"{class_name}.all()")
+                self.assertIn(class_name, mock_stdout.getvalue())
+
     def test_all_models(self):
         """ Test the 'all' command for different classes """
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
