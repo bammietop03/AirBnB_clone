@@ -1,6 +1,7 @@
 import unittest
 """This module defines unittests for the BaseModel"""
 from datetime import datetime
+from time import sleep
 from models.base_model import BaseModel
 
 
@@ -103,6 +104,7 @@ class TestBaseModel(unittest.TestCase):
     def test_base_model_save(self):
         """Test the save method of BaseModel"""
         obj = BaseModel()
+        sleep(0.05)
         original_updated_at = obj.updated_at
         save_output = obj.save()
         self.assertNotEqual(obj.updated_at, original_updated_at)
