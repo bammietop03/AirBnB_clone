@@ -180,18 +180,13 @@ class TestConsoleCommands(unittest.TestCase):
 
     def test_count_models(self):
         """ Test the 'count' command for different classes """
-        """
         classes = ['BaseModel', 'User', 'State', 'City',
                    'Place', 'Amenity', 'Review']
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
             for class_name in classes:
                 self.assertFalse(HBNBCommand().onecmd(f"{class_name}.count()"))
-                output_value = mock_stdout.getvalue()
-                print(output_value)
-                if output_value:
-                    count = int(output_value)
-                    self.assertGreaterEqual(count, "0")
-        """
+                self.assertGreaterEqual("1", mock_stdout.getvalue().strip())
+
         with patch("sys.stdout", new=StringIO()) as output:
             self.assertFalse(HBNBCommand().onecmd("State.count()"))
             self.assertGreaterEqual("1", output.getvalue().strip())
