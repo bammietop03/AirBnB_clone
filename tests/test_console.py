@@ -156,24 +156,69 @@ class TestConsoleCommands(unittest.TestCase):
 
     def test_all_models(self):
         """ Test the 'all' command for different classes """
-        classes = ['BaseModel', 'User', 'State', 'City',
-                   'Place', 'Amenity', 'Review']
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
-            for class_name in classes:
-                self.console.onecmd(f"{class_name}.all()")
-                self.assertIn(class_name, mock_stdout.getvalue())
+            self.assertFalse(HBNBCommand().onecmd("BaseModel.all()"))
+            self.assertIn('BaseModel', mock_stdout.getvalue().strip())
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.assertFalse(HBNBCommand().onecmd("User.all()"))
+            self.assertIn('User', mock_stdout.getvalue())
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.assertFalse(HBNBCommand().onecmd("State.all()"))
+            self.assertIn('State', mock_stdout.getvalue())
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.assertFalse(HBNBCommand().onecmd("City.all()"))
+            self.assertIn('City', mock_stdout.getvalue())
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.assertFalse(HBNBCommand().onecmd("Place.all()"))
+            self.assertIn('Place', mock_stdout.getvalue())
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.assertFalse(HBNBCommand().onecmd("Amenity.all()"))
+            self.assertIn('Amenity', mock_stdout.getvalue())
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.assertFalse(HBNBCommand().onecmd("Review.all()"))
+            self.assertIn('Review', mock_stdout.getvalue())
 
     def test_count_models(self):
         """ Test the 'count' command for different classes """
+        """
         classes = ['BaseModel', 'User', 'State', 'City',
                    'Place', 'Amenity', 'Review']
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
             for class_name in classes:
-                self.console.onecmd(f"{class_name}.count()")
-                output_value = mock_stdout.getvalue().strip()
+                self.assertFalse(HBNBCommand().onecmd(f"{class_name}.count()"))
+                output_value = mock_stdout.getvalue()
+                print(output_value)
                 if output_value:
                     count = int(output_value)
-                    self.assertGreaterEqual(count, 0)
+                    self.assertGreaterEqual(count, "0")
+        """
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("State.count()"))
+            self.assertGreaterEqual("1", output.getvalue().strip())
+
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("BaseModel.count()"))
+            self.assertGreaterEqual("1", output.getvalue().strip())
+
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("City.count()"))
+            self.assertGreaterEqual("1", output.getvalue().strip())
+
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("User.count()"))
+            self.assertGreaterEqual("1", output.getvalue().strip())
+
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("Place.count()"))
+            self.assertGreaterEqual("1", output.getvalue().strip())
+
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("Amenity.count()"))
+            self.assertGreaterEqual("1", output.getvalue().strip())
+
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.assertFalse(HBNBCommand().onecmd("Review.count()"))
+            self.assertGreaterEqual("1", output.getvalue().strip())
 
     def test_show_models(self):
         """ Test the 'show' command for different classes """
