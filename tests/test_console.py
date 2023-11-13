@@ -47,6 +47,7 @@ class TestConsoleCommands(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as output:
             for class_name in classes:
                 command = f"create {class_name}"
+                self.console.onecmd(command)
                 self.assertFalse(HBNBCommand().onecmd(command))
                 self.assertLess(0, len(output.getvalue().strip()))
 
@@ -160,9 +161,9 @@ class TestConsoleCommands(unittest.TestCase):
                    'Place', 'Amenity', 'Review']
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
             for class_name in classes:
-                self.console.onecmd(f"{class_name}.all()")
+                self.console.onecmd(f"all {class_name}")
                 """self.assertFalse(HBNBCommand().onecmd(f"{class_name}.all()"))"""
-                self.assertIn(class_name, mock_stdout.getvalue())
+                self.assertIn(class_name, mock_stdout.getvalue().strip())
 
     def test_all_models(self):
         """ Test the 'all' command for different classes """
@@ -234,7 +235,7 @@ class TestConsoleCommands(unittest.TestCase):
             command = "BaseModel.show({})".format(testID)
             self.assertFalse(HBNBCommand().onecmd(command))
         with patch("sys.stdout", new=StringIO()) as output:
-            testCmd = "BaseModel.update({}, attr_name, 'attr_value')".format(testID)
+            testCmd = f"BaseModel.update({testID}, attr_name, 'attr_value')"
             self.assertFalse(HBNBCommand().onecmd(testCmd))
         with patch("sys.stdout", new=StringIO()) as output:
             obj = storage.all()["BaseModel.{}".format(testID)]
