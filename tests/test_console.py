@@ -153,6 +153,18 @@ class TestConsoleCommands(unittest.TestCase):
                 self.console.onecmd(f"{class_name}.all()")
                 self.assertIn(class_name, mock_stdout.getvalue())
 
+    def test_count_models(self):
+        """ Test the 'count' command for different classes """
+        classes = ['BaseModel', 'User', 'State', 'City',
+                   'Place', 'Amenity', 'Review']
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            for class_name in classes:
+                self.console.onecmd(f"{class_name}.count()")
+                output_value = mock_stdout.getvalue().strip()
+                if output_value:
+                    count = int(output_value)
+                    self.assertGreaterEqual(count, 0)
+
 
 if __name__ == '__main__':
     unittest.main()
