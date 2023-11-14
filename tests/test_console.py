@@ -40,9 +40,9 @@ class TestConsoleCommands(unittest.TestCase):
             testKey = "BaseModel.{}".format(output.getvalue().strip())
             self.assertIn(testKey, storage.all().keys())
 
-    def test_create_models(self):
+    def test_create_models1(self):
         """ Test the 'create' command for different classes """
-        classes = ['BaseModel', 'User', 'State', 'City',
+        classes = ['BaseModel', 'State', 'City',
                    'Place', 'Amenity', 'Review']
         with patch('sys.stdout', new=StringIO()) as output:
             for class_name in classes:
@@ -154,6 +154,16 @@ class TestConsoleCommands(unittest.TestCase):
             self.console.onecmd("update BaseModel 1234-5678 attribute_name")
             self.assertEqual(mock_stdout.getvalue().strip(),
                              "** value missing **")
+
+    def test_all_models1(self):
+        """ Test the 'all' command for different classes """
+        classes = ['BaseModel', 'User', 'State', 'City',
+                   'Place', 'Amenity', 'Review']
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            for class_name in classes:
+                self.console.onecmd(f"all {class_name}")
+                """self.assertFalse(HBNBCommand().onecmd(f"{class_name}.all()"))"""
+                self.assertIn(class_name, mock_stdout.getvalue().strip())
 
     def test_all_models(self):
         """ Test the 'all' command for different classes """

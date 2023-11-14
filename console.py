@@ -16,6 +16,7 @@ from models.review import Review
 
 class_names = [subclass.__name__ for subclass in BaseModel.get_subclasses()]
 
+
 class HBNBCommand(cmd.Cmd):
     """
     Handles the command-line interpreter for the Airbnb Clone project.
