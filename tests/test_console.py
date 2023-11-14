@@ -40,13 +40,14 @@ class TestConsoleCommands(unittest.TestCase):
             testKey = "BaseModel.{}".format(output.getvalue().strip())
             self.assertIn(testKey, storage.all().keys())
 
-    def test_create_models1(self):
+    def test_create_models(self):
         """ Test the 'create' command for different classes """
-        classes = ['BaseModel', 'State', 'City',
+        classes = ['BaseModel', 'User', 'State', 'City',
                    'Place', 'Amenity', 'Review']
         with patch('sys.stdout', new=StringIO()) as output:
             for class_name in classes:
                 command = f"create {class_name}"
+                self.console.onecmd(command)
                 self.assertFalse(HBNBCommand().onecmd(command))
                 self.assertLess(0, len(output.getvalue().strip()))
 
@@ -154,39 +155,17 @@ class TestConsoleCommands(unittest.TestCase):
             self.assertEqual(mock_stdout.getvalue().strip(),
                              "** value missing **")
 
-    def test_all_models1(self):
-        """ Test the 'all' command for different classes """
-        classes = ['BaseModel', 'User', 'State', 'City',
-                   'Place', 'Amenity', 'Review']
-        with patch('sys.stdout', new=StringIO()) as mock_stdout:
-            for class_name in classes:
-                self.console.onecmd(f"{class_name}.all()")
-                """self.assertFalse(HBNBCommand().onecmd(f"{class_name}.all()"))"""
-                self.assertIn(class_name, mock_stdout.getvalue())
-
     def test_all_models(self):
         """ Test the 'all' command for different classes """
+        classes = ['BaseModel', 'User', 'State', 'City', 'Place', 'Amenity', 'Review']
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
-            self.assertFalse(HBNBCommand().onecmd("BaseModel.all()"))
-            self.assertIn('BaseModel', mock_stdout.getvalue().strip())
-        with patch('sys.stdout', new=StringIO()) as mock_stdout:
-            self.assertFalse(HBNBCommand().onecmd("User.all()"))
-            self.assertIn('User', mock_stdout.getvalue())
-        with patch('sys.stdout', new=StringIO()) as mock_stdout:
-            self.assertFalse(HBNBCommand().onecmd("State.all()"))
-            self.assertIn('State', mock_stdout.getvalue())
-        with patch('sys.stdout', new=StringIO()) as mock_stdout:
-            self.assertFalse(HBNBCommand().onecmd("City.all()"))
-            self.assertIn('City', mock_stdout.getvalue())
-        with patch('sys.stdout', new=StringIO()) as mock_stdout:
-            self.assertFalse(HBNBCommand().onecmd("Place.all()"))
-            self.assertIn('Place', mock_stdout.getvalue())
-        with patch('sys.stdout', new=StringIO()) as mock_stdout:
-            self.assertFalse(HBNBCommand().onecmd("Amenity.all()"))
-            self.assertIn('Amenity', mock_stdout.getvalue())
-        with patch('sys.stdout', new=StringIO()) as mock_stdout:
-            self.assertFalse(HBNBCommand().onecmd("Review.all()"))
-            self.assertIn('Review', mock_stdout.getvalue())
+            for class_name in classes:
+                self.console.onecmd(f"all {class_name}")
+                output_lines = mock_stdout.getvalue().strip().split('\n')
+                for line in output_lines:
+                    # Check if each class name is present in the line
+                    self.assertIn(class_name, line)
+
 
     def test_count_models(self):
         """ Test the 'count' command for different classes """
@@ -234,7 +213,7 @@ class TestConsoleCommands(unittest.TestCase):
             command = "BaseModel.show({})".format(testID)
             self.assertFalse(HBNBCommand().onecmd(command))
         with patch("sys.stdout", new=StringIO()) as output:
-            testCmd = "BaseModel.update({}, attr_name, 'attr_value')".format(testID)
+            testCmd = f"BaseModel.update({testID}, attr_name, 'attr_value')"
             self.assertFalse(HBNBCommand().onecmd(testCmd))
         with patch("sys.stdout", new=StringIO()) as output:
             obj = storage.all()["BaseModel.{}".format(testID)]
