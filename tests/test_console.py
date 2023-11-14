@@ -157,7 +157,8 @@ class TestConsoleCommands(unittest.TestCase):
 
     def test_all_models(self):
         """ Test the 'all' command for different classes """
-        classes = ['BaseModel', 'User', 'State', 'City', 'Place', 'Amenity', 'Review']
+        classes = ['BaseModel', 'User', 'State', 'City', 'Place', 'Amenity',
+                   'Review']
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
             for class_name in classes:
                 self.console.onecmd(f"all {class_name}")
@@ -165,7 +166,6 @@ class TestConsoleCommands(unittest.TestCase):
                 for line in output_lines:
                     # Check if each class name is present in the line
                     self.assertIn(class_name, line)
-
 
     def test_count_models(self):
         """ Test the 'count' command for different classes """
