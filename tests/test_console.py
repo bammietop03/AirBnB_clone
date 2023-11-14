@@ -310,6 +310,80 @@ class TestConsoleCommands(unittest.TestCase):
             self.console.emptyline()
             self.assertEqual(mock_stdout.getvalue(), '')
 
+    def test_do_create(self):
+        """ Test the 'create' command with valid and invalid inputs """
+        classes_to_test = [BaseModel, User, State, City, Amenity, Place,
+                           Review]
+        for class_obj in classes_to_test:
+            class_name = class_obj.__name__
+            with patch("sys.stdout", new=StringIO()) as output:
+                self.assertFalse(self.console.onecmd(f"create {class_name}"))
+                self.assertLess(0, len(output.getvalue().strip()))
+                test_key = f"{class_name}.{output.getvalue().strip()}"
+                self.assertIn(test_key, storage.all().keys())
+
+            with patch("sys.stdout", new=StringIO()) as output:
+                self.assertFalse(self.console.onecmd(f"create InvalidClass"))
+                self.assertEqual(output.getvalue().strip(),
+                                 "** class doesn't exist **")
+
+    def test_do_show(self):
+        """ Test the 'show' command with valid and invalid inputs """
+        classes_to_test = [BaseModel, User, State, City, Amenity, Place,
+                           Review]
+        for class_obj in classes_to_test:
+            class_name = class_obj.__name__
+            with patch("sys.stdout", new=StringIO()) as output:
+                self.assertFalse(self.console.onecmd(f"show {class_name}"))
+                self.assertEqual(output.getvalue().strip(),
+                                 "** instance id missing **")
+
+            with patch("sys.stdout", new=StringIO()) as output:
+                self.assertFalse(self.console.onecmd(f"show {class_name}\
+                                 1234-5678"))
+                self.assertEqual(output.getvalue().strip(),
+                                 "** no instance found **")
+
+    def test_do_destroy(self):
+        """ Test the 'destroy' command with valid and invalid inputs """
+        classes_to_test = [BaseModel, User, State, City, Amenity, Place,
+                           Review]
+        for class_obj in classes_to_test:
+            class_name = class_obj.__name__
+            with patch("sys.stdout", new=StringIO()) as output:
+                self.assertFalse(self.console.onecmd(f"destroy {class_name}"))
+                self.assertEqual(output.getvalue().strip(),
+                                 "** instance id missing **")
+
+            with patch("sys.stdout", new=StringIO()) as output:
+                self.assertFalse(self.console.onecmd(f"destroy {class_name}\
+                                 1234-5678"))
+                self.assertEqual(output.getvalue().strip(),
+                                 "** no instance found **")
+
+    def test_do_update(self):
+        """ Test the 'update' command with valid and invalid inputs """
+        classes_to_test = [BaseModel, User, State, City, Amenity, Place,
+                           Review]
+        for class_obj in classes_to_test:
+            class_name = class_obj.__name__
+            with patch("sys.stdout", new=StringIO()) as output:
+                self.assertFalse(self.console.onecmd(f"update {class_name}"))
+                self.assertEqual(output.getvalue().strip(),
+                                 "** instance id missing **")
+
+            with patch("sys.stdout", new=StringIO()) as output:
+                self.assertFalse(self.console.onecmd(f"update {class_name}\
+                                 1234-5678"))
+                self.assertEqual(output.getvalue().strip(),
+                                 "** attribute name missing **")
+
+            with patch("sys.stdout", new=StringIO()) as output:
+                self.assertFalse(self.console.onecmd(f"update {class_name}\
+                                 1234-5678 attribute_name"))
+                self.assertEqual(output.getvalue().strip(),
+                                 "** value missing **")
+
 
 if __name__ == '__main__':
     unittest.main()
