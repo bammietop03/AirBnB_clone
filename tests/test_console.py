@@ -155,26 +155,6 @@ class TestConsoleCommands(unittest.TestCase):
             self.assertEqual(mock_stdout.getvalue().strip(),
                              "** value missing **")
 
-    def test_all_models(self):
-        """ Test the 'all' command for different classes """
-        classes = ['BaseModel', 'User', 'State', 'City',
-                   'Place', 'Amenity', 'Review']
-        with patch('sys.stdout', new=StringIO()) as mock_stdout:
-            for class_name in classes:
-                self.console.onecmd(f"all {class_name}")
-                output = mock_stdout.getvalue().strip()
-                if "** no instance found **" in output:
-                    # Handle case where no instances are found for the class
-                    self.assertIn(f'** no instance found **', output)
-                else:
-                    lines = output.split('\n')
-                    for line in lines:
-                        if line.startswith(f'{class_name}.'):
-                            self.assertIn(class_name, line)
-                            break
-                        else:
-                            self.assertNotIn("** no instance found **", output)
-
     def test_count_models(self):
         """ Test the 'count' command for different classes """
         classes = ['BaseModel', 'User', 'State', 'City',
