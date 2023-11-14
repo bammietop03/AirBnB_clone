@@ -168,6 +168,30 @@ class TestConsoleCommands(unittest.TestCase):
                         key]:
                     self.assertIn(class_name, mock_stdout.getvalue().strip())
 
+    def test_all_models(self):
+        """ Test the 'all' command for different classes """
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.assertFalse(HBNBCommand().onecmd("BaseModel.all()"))
+            self.assertIn('BaseModel', mock_stdout.getvalue().strip())
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.assertFalse(HBNBCommand().onecmd("User.all()"))
+            self.assertIn('User', mock_stdout.getvalue())
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.assertFalse(HBNBCommand().onecmd("State.all()"))
+            self.assertIn('State', mock_stdout.getvalue())
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.assertFalse(HBNBCommand().onecmd("City.all()"))
+            self.assertIn('City', mock_stdout.getvalue())
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.assertFalse(HBNBCommand().onecmd("Place.all()"))
+            self.assertIn('Place', mock_stdout.getvalue())
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.assertFalse(HBNBCommand().onecmd("Amenity.all()"))
+            self.assertIn('Amenity', mock_stdout.getvalue())
+        with patch('sys.stdout', new=StringIO()) as mock_stdout:
+            self.assertFalse(HBNBCommand().onecmd("Review.all()"))
+            self.assertIn('Review', mock_stdout.getvalue())
+
     def test_count_models(self):
         """ Test the 'count' command for different classes """
         classes = ['BaseModel', 'User', 'State', 'City',
