@@ -165,7 +165,7 @@ class TestConsoleCommands(unittest.TestCase):
                 """self.assertFalse(HBNBCommand().onecmd(f"{class_name}.
                    all()"))"""
                 if [str(obj) for key, obj in storage.all().items() if
-                    key]:
+                        key]:
                     self.assertIn(class_name, mock_stdout.getvalue().strip())
 
     def test_count_models(self):
