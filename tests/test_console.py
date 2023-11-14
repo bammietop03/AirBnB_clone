@@ -157,19 +157,6 @@ class TestConsoleCommands(unittest.TestCase):
 
     def test_all_models(self):
         """ Test the 'all' command for different classes """
-        classes = ['BaseModel', 'User', 'State', 'City',
-                   'Place', 'Amenity', 'Review']
-        with patch('sys.stdout', new=StringIO()) as mock_stdout:
-            for class_name in classes:
-                self.console.onecmd(f"all {class_name}")
-                """self.assertFalse(HBNBCommand().onecmd(f"{class_name}.
-                   all()"))"""
-                if [str(obj) for key, obj in storage.all().items() if
-                        key]:
-                    self.assertIn(class_name, mock_stdout.getvalue().strip())
-
-    def test_all_models(self):
-        """ Test the 'all' command for different classes """
         with patch('sys.stdout', new=StringIO()) as mock_stdout:
             self.assertFalse(HBNBCommand().onecmd("BaseModel.all()"))
             self.assertIn('BaseModel', mock_stdout.getvalue().strip())
