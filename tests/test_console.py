@@ -310,12 +310,6 @@ class TestConsoleCommands(unittest.TestCase):
             self.console.emptyline()
             self.assertEqual(mock_stdout.getvalue(), '')
 
-    def help_command(self):
-        """testing an only help command"""
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("help")
-            output = '\nDocumented commands (type help <topic>)[103 chars]\n\n'
-            self.assertEqual(output, f.getvalue())
 
 if __name__ == '__main__':
     unittest.main()
