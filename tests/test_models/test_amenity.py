@@ -7,6 +7,7 @@ from models.base_model import BaseModel
 
 
 class TestAmenity(unittest.TestCase):
+    """The defined class with different cases to test Amenity class"""
     def setUp(self):
         """Set up a new Amenity instance for each test."""
         self.amenity = Amenity()

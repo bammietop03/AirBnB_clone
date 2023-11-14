@@ -1,11 +1,11 @@
 # AirBnB_clone
-Welcome to the AirBnB clone project
+
 
 <img src="https://miro.medium.com/v2/resize:fit:1358/0*NChTo-XqLOxLabIW" width="1500" height="200">
 
-## Welcome to the AirBnB clone project!
+## Welcome to the AirBnB clone project
 
-# First step: Write a command interpreter to manage your AirBnB objects.
+## First step: Write a command interpreter to manage your AirBnB objects.
 This is the first step towards building your first full web application: the AirBnB clone. This first step is very important because you will use what you build during this project with all other following projects: HTML/CSS templating, database storage, API, front-end integration…
 
 **Each task is linked and will help you to:**
@@ -21,7 +21,7 @@ This is the first step towards building your first full web application: the Air
 ### Processing Commands
 The interpreter uses a loop to read all lines from its input, parse them, and then dispatch the command
 to an appropriate command handler. The command, and any other text on the line. If the user enters a
-command ``` all User ```, and your class includes a method named do_all(), it is called with "User" as the only argument.
+command ``` all User ```, and your class includes a method named ``` do_all() ```, it is called with "User" as the only argument.
 
 Do you remember the Shell? It’s exactly the same but limited to a specific use-case. In our case, we want to be able to manage the objects of our project:
 

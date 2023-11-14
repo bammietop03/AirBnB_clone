@@ -54,7 +54,7 @@ class HBNBCommand(cmd.Cmd):
             class_id, rest_of_command = arg.split(None, 1)
             rest_of_command = rest_of_command.replace('"', '')
             return f"{class_id} {rest_of_command}"
-        """    
+        """
         if "." in arg:
             new_str = re.sub(r'[){}:\'"]', "", arg)
             new_str = re.sub(r'[(.,]', " ", new_str).split()
@@ -134,9 +134,9 @@ class HBNBCommand(cmd.Cmd):
                 return
 
             object_list = [str(obj) for key, obj in all_object.items() if
-                           key.split(".")[0] == args[0]]
+                           key]
         else:
-            object_list = [str(all_object[key]) for key in all_object]
+            object_list = [str(obj) for obj in all_object.values()]
 
         if not object_list:
             print("** no instance found **")
@@ -163,7 +163,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
             else:
                 key = args[0] + "." + args[1]
-    
+
                 if key in storage.all():
                     instance = storage.all()[key]
                     for i in range(2, len(args) - 1, 2):
@@ -179,7 +179,7 @@ class HBNBCommand(cmd.Cmd):
                             break
                     instance.save()
                 else:
-                    print("** no instance found **") 
+                    print("** no instance found **")
 
     def do_count(self, arg):
         """Retrieves the number of instances of a specified class.
@@ -192,7 +192,10 @@ class HBNBCommand(cmd.Cmd):
             if args[0] not in class_names:
                 print("** class doesn't exist **")
             else:
-                count = len([obj for obj in storage.all() if args[0] in obj])
+                count = 0
+                for obj in storage.all().values():
+                    if obj.__class__.__name__ == args[0]:
+                        count += 1
                 print(count)
 
 

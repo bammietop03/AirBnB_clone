@@ -7,6 +7,7 @@ from models.base_model import BaseModel
 
 
 class TestCity(unittest.TestCase):
+    """The defined class with different cases to test City class"""
     def setUp(self):
         """Set up a new City instance for each test."""
         self.city = City()

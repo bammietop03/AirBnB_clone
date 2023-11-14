@@ -5,6 +5,7 @@ of the FileStorage class.
 """
 import unittest
 import os
+import json
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -13,6 +14,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 from models.engine.file_storage import FileStorage
+from models import storage
 
 
 class TestFileStorage(unittest.TestCase):
@@ -31,6 +33,7 @@ class TestFileStorage(unittest.TestCase):
         self.file_path = "test_file.json"
         self.storage = FileStorage()
         self.storage._FileStorage__file_path = self.file_path
+        storage.all().clear()
 
     def tearDown(self):
         """
@@ -123,6 +126,80 @@ class TestFileStorage(unittest.TestCase):
         all_objects = self.storage.all()
         self.assertEqual(len(all_objects), 0)
         self.assertIsInstance(all_objects, dict)
+
+    def test_all_with_arg(self):
+        """test all with none"""
+        with self.assertRaises(TypeError):
+            storage.all(None)
+
+    def test_new_with_args(self):
+        """ testing new with args """
+        with self.assertRaises(TypeError):
+            storage.new(BaseModel(), 1)
+
+    def test_new_with_None(self):
+        """ testing new with none """
+        with self.assertRaises(AttributeError):
+            storage.new(None)
+
+    def test_save_with_none(self):
+        """ testing save with none """
+        with self.assertRaises(TypeError):
+            storage.save(None)
+
+    def test_reload_with_none(self):
+        """testing reload with none """
+        with self.assertRaises(TypeError):
+            storage.reload(None)
+
+    def test_FileStorage_no_args(self):
+        """testing FileStorage with no args"""
+        self.assertEqual(type(FileStorage()), FileStorage)
+
+    def test_FileStorage_with_arg(self):
+        """testing FileStorage with args"""
+        with self.assertRaises(TypeError):
+            FileStorage(None)
+
+    def test_FileStorage_file_path_is_private_str(self):
+        """testing file_path is a private str"""
+        self.assertEqual(str, type(FileStorage._FileStorage__file_path))
+
+    def test_FileStorage_objects_is_private_dict(self):
+        """testing file_path is private dict"""
+        self.assertEqual(dict, type(FileStorage._FileStorage__objects))
+
+    def test_storage(self):
+        """testing storage """
+        self.assertEqual(type(storage), FileStorage)
+
+    def test_reload_existing_file(self):
+        """Test reloading from an existing file"""
+        user = User()
+        self.storage.new(user)
+        self.storage.save()
+        self.storage.reload()
+        objects = self.storage.all()
+        self.assertIn('User.{}'.format(user.id), objects)
+
+    def test_reload_nonexistent_file(self):
+        """Test reloading from a nonexistent file"""
+        self.storage.reload()  # Should not raise an exception
+
+    def test_reload_empty_file(self):
+        """Test reloading from an empty file"""
+        with open(self.storage._FileStorage__file_path, 'w',
+                  encoding='utf-8') as file:
+            file.write('{}')
+        self.storage.reload()  # Should not raise an exception
+
+    def test_reload_invalid_file(self):
+        """Test reloading from an invalid JSON file"""
+        with open(self.storage._FileStorage__file_path, 'w',
+                  encoding='utf-8') as file:
+            file.write('invalid json')
+        with self.assertRaises(json.JSONDecodeError):
+            self.storage.reload()
 
 
 if __name__ == '__main__':

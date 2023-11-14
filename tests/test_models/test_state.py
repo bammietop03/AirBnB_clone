@@ -7,6 +7,7 @@ from models.base_model import BaseModel
 
 
 class TestState(unittest.TestCase):
+    """The defined class with different cases to test State class"""
     def setUp(self):
         """Set up a new State instance for each test."""
         self.state = State()
