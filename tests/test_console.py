@@ -305,6 +305,11 @@ class TestConsoleCommands(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd(command))
             self.assertNotIn(obj, storage.all())
 
+    def test_emptyline(self):
+        with patch("sys.stdout", new_callable=StringIO) as mock_stdout:
+            self.console.emptyline()
+            self.assertEqual(mock_stdout.getvalue(), '')
+
 
 if __name__ == '__main__':
     unittest.main()
