@@ -310,6 +310,27 @@ class TestConsoleCommands(unittest.TestCase):
             self.console.emptyline()
             self.assertEqual(mock_stdout.getvalue(), '')
 
+    def generate_update_test(self, class_name):
+        """ Generate update method test for a specific class """
+        def test_update(self):
+            with patch("sys.stdout", new_callable=StringIO) as output:
+                command = f'{class_name}.update("id", {"attribute_name":\
+                             "string_value"})'
+                self.assertFalse(self.console.onecmd(command))
+                self.assertIn("** no instance found **",
+                              output.getvalue().strip())
+
+        return test_update
+
+    def test_update_methods(self):
+        """ Test update method for all classes """
+        classes = ["BaseModel", "User", "State", "Amenity", "City", "Place",
+                   "Review"]
+
+        for class_name in classes:
+            test_update = self.generate_update_test(class_name)
+            setattr(self, f'test_{class_name.lower()}_update', test_update)
+
 
 if __name__ == '__main__':
     unittest.main()
