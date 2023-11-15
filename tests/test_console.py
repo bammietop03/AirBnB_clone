@@ -216,6 +216,15 @@ class TestConsoleCommands(unittest.TestCase):
             self.assertFalse(HBNBCommand().onecmd("Review.count()"))
             self.assertGreaterEqual("1", output.getvalue().strip())
 
+    def test_do_count(self):
+        classes_to_test = [BaseModel, User, State, City, Amenity, Place, Review]
+        for class_obj in classes_to_test:
+            class_name = class_obj.__name__
+            with patch("sys.stdout", new=StringIO()) as output:
+                self.assertFalse(self.console.onecmd(f"count {class_name}"))
+                # Check the output for the count
+                self.assertGreaterEqual(int(output.getvalue().strip()), 0)
+
     def test_show_models(self):
         """ Test the 'show' command for different classes """
         with patch("sys.stdout", new=StringIO()) as output:
