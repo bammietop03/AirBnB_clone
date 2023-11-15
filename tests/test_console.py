@@ -217,7 +217,8 @@ class TestConsoleCommands(unittest.TestCase):
             self.assertGreaterEqual("1", output.getvalue().strip())
 
     def test_do_count(self):
-        classes_to_test = [BaseModel, User, State, City, Amenity, Place, Review]
+        classes_to_test = [BaseModel, User, State, City, Amenity, Place,
+                           Review]
         for class_obj in classes_to_test:
             class_name = class_obj.__name__
             with patch("sys.stdout", new=StringIO()) as output:
