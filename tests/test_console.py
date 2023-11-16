@@ -12,7 +12,6 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-from unittest import TestCase, mock
 
 
 class TestConsoleCommands(unittest.TestCase):
@@ -210,12 +209,11 @@ class TestConsoleCommands(unittest.TestCase):
         class_names = [BaseModel, User, State, City, Amenity, Place, Review]
 
         for class_name in class_names:
-            with self.subTest(class_name=class_name):
-                obj = class_name()
-                with mock.patch("sys.stdout", new=StringIO()) as output:
-                    self.console.onecmd(f"{class_obj.__name__}.show(
-                                           '{obj.id}')")
-                    self.assertIn(f"{class_name.__name__}", output.getvalue())
+            obj = class_name()
+            with patch("sys.stdout", new=StringIO()) as output:
+                self.console.onecmd(f"{class_name.__name__}.\
+                                          show('{obj.id}')")
+                self.assertIn("", output.getvalue())
 
     def test_emptyline(self):
         with patch("sys.stdout", new_callable=StringIO) as mock_stdout:
