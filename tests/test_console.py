@@ -233,7 +233,9 @@ class TestConsoleCommands(unittest.TestCase):
             testID = output.getvalue().strip()
         with patch("sys.stdout", new=StringIO()) as output:
             command = "BaseModel.show({})".format(testID)
+            obj = storage.all()[f"[BaseModel] ({testID})"]
             self.assertFalse(HBNBCommand().onecmd(command))
+            self.assertEqual(obj.__str__(), output.getvalue().strip())
         with patch("sys.stdout", new=StringIO()) as output:
             testCmd = f"BaseModel.update({testID}, attr_name, 'attr_value')"
             self.assertFalse(HBNBCommand().onecmd(testCmd))
