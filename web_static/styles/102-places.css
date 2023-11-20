@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin-left: 10px;
 }
 .places article {
     width: 390px;
@@ -133,3 +134,8 @@
     margin-top: 0;
 }
   
+@media screen and (max-width: 600px) {
+    .places {
+        margin-top: 50px;
+    }
+}
