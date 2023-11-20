@@ -1,0 +1,108 @@
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  height: 70px;
+  width: 96%;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+}
+
+.filters button {
+  font-size: 18px;
+  background: #ff5a5f;
+  color: #ffffff;
+  height: 48px;
+  width: 20%;
+  border: none;
+  border-radius: 4px;
+  margin: 0 30px 0 60px;
+  order: 3;
+  cursor: pointer;
+}
+
+.filters .locations,
+.filters .amenities {
+  height: 100%;
+  width: 25%;
+  flex: 1;
+}
+
+.filters .locations {
+  border-right: 1px solid #dddddd;
+}
+
+.filters h3 {
+  font-weight: 600;
+  margin: 15px 0 0 0;
+}
+
+.filters h4 {
+  font-weight: 400;
+  font-size: 14px;
+  margin: 5px 0 15px 0;
+}
+
+.filters h3,
+.filters h4 {
+  padding-left: 35px;
+}
+
+.filters .popover {
+  width: 100%;
+  background: #fafafa;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  padding: 20px 0;
+  margin-top: -1px;
+  display: none;
+  position: relative;
+  z-index: 1;
+}
+
+.filters .locations,
+.filters .amenities {
+  cursor: pointer;
+}
+
+.filters .locations:hover .popover,
+.filters .amenities:hover .popover {
+  display: block;
+}
+
+.filters ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.filters .popover li:not(:has(> h2)) {
+  padding: 3px 0 3px 35px;
+}
+
+.filters .popover h2 {
+  margin-bottom: 5px;
+  padding-left: 5px;
+}
+
+@media screen and (max-width: 600px) {
+  .filters {
+    flex-wrap: wrap;
+  }
+
+  .filters button {
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+
+@media screen and (max-width: 385px) {
+  .filters h3,
+  .filters h4 {
+    padding-left: 20px;
+  }
+  .filters .popover li:not(:has(> h2)) {
+    padding: 3px 0 3px 25px;
+  }
+}
